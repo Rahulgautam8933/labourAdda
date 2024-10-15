@@ -12,9 +12,7 @@ const uploadImage = asyncHandler(async (req, res) => {
         const response = new apiResponse(200, imageUrl, "Customer created successfully");
         res.status(201).json(response);
     } catch (error) {
-
         console.log("error", error);
-
         res.status(400).json({ message: error.message });
     }
 });

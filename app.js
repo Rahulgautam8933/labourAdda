@@ -15,7 +15,9 @@ app.use(cookiesParser());
 
 
 import LabourRouter from "./routes/labourRoutes.js";
+import CustomerRouter from "./routes/customerRoutes.js";
 app.use("/api/v1/labour", LabourRouter);
+app.use("/api/v1/customer", CustomerRouter);
 
 
 

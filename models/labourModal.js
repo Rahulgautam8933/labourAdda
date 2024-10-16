@@ -7,25 +7,66 @@ const laborSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    number: {
+    age: {
         type: String,
         required: true,
-        unique: true,
+    },
+    mobile: {
+        type: String,
+        required: true,
+    },
+    category: {
+        type: String,
+        required: true,
+    },
+    subCategory: {
+        type: String,
+        required: true,
+    },
+    currentAddress: {
+        type: String,
+        required: true,
+    },
+    permanentAddress: {
+        type: String,
+        required: true,
+    },
+    pincode: {
+        type: String,
+        required: true,
+    },
+    state: {
+        type: String,
+        required: true,
+    },
+    city: {
+        type: String,
+        required: true,
+    },
+    aadharNo: {
+        type: String,
+        required: true,
+    },
+    aadharFrontImage: {
+        type: String,
+        required: true,
+    },
+    aadharBackImage: {
+        type: String,
+        required: true,
+    },
+    totleExprience: {
+        type: String,
+        required: true,
     },
     profileImage: {
-        type: String, // Assuming the image is stored as a URL or path
-        required: true,
-    },
-    aadharImage: {
-        type: String, // Same as above
-        required: true,
-    },
-    address: {
         type: String,
         required: true,
-    }
+    },
+
+
 }, {
-    timestamps: true, // This will add createdAt and updatedAt timestamps
+    timestamps: true,
 });
 
 // Create the model

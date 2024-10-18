@@ -12,7 +12,7 @@ const router = Router();
 
 router.post('/addcategory', addCategory);
 
-router.get('/allcategory', getAllCategories);
+router.get('/getAllData', getAllCategories);
 
 router.get('getcategory/:id', getCategoryById);
 

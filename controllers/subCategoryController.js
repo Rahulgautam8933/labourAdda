@@ -94,10 +94,36 @@ const deleteSubCategory = asyncHandler(async (req, res) => {
     }
 });
 
+
+const getSubCategoriesByCategoryId = asyncHandler(async (req, res) => {
+    const { categoryId } = req.query;
+
+    try {
+        let subCategories;
+
+        if (categoryId) {
+            subCategories = await SubCategory.find({ categoryId }).populate('categoryId', 'name');
+        } else {
+            subCategories = await SubCategory.find().populate('categoryId', 'name');
+        }
+
+        if (!subCategories.length) {
+            return res.status(404).json(new apiResponse(404, null, "No subcategories found."));
+        }
+
+        res.status(200).json(new apiResponse(200, subCategories, "Subcategories fetched successfully."));
+    } catch (error) {
+        console.error("Error fetching subcategories:", error);
+        res.status(500).json(new apiResponse(500, null, error.message));
+    }
+});
+
+
 export {
     addSubCategory,
     getAllSubCategories,
     getSubCategoryById,
     updateSubCategory,
     deleteSubCategory,
+    getSubCategoriesByCategoryId
 };

@@ -14,10 +14,10 @@ router.post('/addcategory', addCategory);
 
 router.get('/getAllData', getAllCategories);
 
-router.get('getcategory/:id', getCategoryById);
+router.get('/getcategory/:id', getCategoryById);
 
-router.patch('updatecategory/:id', updateCategory);
+router.patch('/updatecategory/:id', updateCategory);
 
-router.delete('deletecategory/:id', deleteCategory);
+router.delete('/deletecategory/:id', deleteCategory);
 
 export default router;

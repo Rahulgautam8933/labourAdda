@@ -62,7 +62,7 @@ const getAllData = asyncHandler(async (req, res) => {
             return res.status(404).json(new apiResponse(404, null, "No customer entries found."));
         }
 
-        res.status(200).json(new apiResponse(200, customerEntries, "Customer entries fetched successfully."));
+        res.status(200).json(new apiResponse(200, customerEntries || [], "Customer entries fetched successfully."));
     } catch (error) {
         console.error("Error fetching customer entries:", error);
         res.status(500).json(new apiResponse(500, null, error.message));

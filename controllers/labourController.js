@@ -122,7 +122,7 @@ const getAllData = asyncHandler(async (req, res) => {
             return res.status(404).json(new apiResponse(404, null, "No labor entries found."));
         }
 
-        res.status(200).json(new apiResponse(200, laborEntries, "Labor entries fetched successfully."));
+        res.status(200).json(new apiResponse(200, laborEntries || [], "Labor entries fetched successfully."));
     } catch (error) {
         console.error("Error fetching labor entries:", error);
         res.status(500).json(new apiResponse(500, null, error.message));

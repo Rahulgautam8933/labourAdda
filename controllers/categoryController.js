@@ -50,7 +50,7 @@ const getCategoryById = asyncHandler(async (req, res) => {
             return res.status(404).json(new apiResponse(404, null, "Category not found."));
         }
 
-        res.status(200).json(new apiResponse(200, category, "Category fetched successfully."));
+        res.status(200).json(new apiResponse(200, category || [], "Category fetched successfully."));
     } catch (error) {
         console.error("Error fetching category:", error);
         res.status(500).json(new apiResponse(500, null, error.message));
@@ -69,7 +69,7 @@ const updateCategory = asyncHandler(async (req, res) => {
             return res.status(404).json(new apiResponse(404, null, "Category not found."));
         }
 
-        res.status(200).json(new apiResponse(200, updatedCategory, "Category updated successfully."));
+        res.status(200).json(new apiResponse(200, updatedCategory || [], "Category updated successfully."));
     } catch (error) {
         console.error("Error updating category:", error);
         res.status(500).json(new apiResponse(500, null, error.message));

@@ -17,14 +17,14 @@ const addData = asyncHandler(async (req, res) => {
             landmark,
             details,
             category,
-            subcategory,
+            subCategory,
             qyt,
             startDate,
         } = req.body;
 
         if (!name || !mobile || !currentAddress || !permanentAddress ||
             !pincode || !state || !city || !landmark || !details ||
-            !category || !subcategory || !qyt || !startDate) {
+            !category || !subCategory || !qyt || !startDate) {
             return res.status(400).json(new apiResponse(400, null, "All fields are required."));
         }
 
@@ -39,7 +39,7 @@ const addData = asyncHandler(async (req, res) => {
             landmark,
             details,
             category,
-            subcategory,
+            subCategory,
             qyt,
             startDate,
         });
@@ -56,7 +56,8 @@ const addData = asyncHandler(async (req, res) => {
 // Get All Data
 const getAllData = asyncHandler(async (req, res) => {
     try {
-        const customerEntries = await Customer.find();
+        const customerEntries = await Customer.find().populate('category', 'name')
+            .populate('subCategory', 'name');
 
         if (!customerEntries.length) {
             return res.status(404).json(new apiResponse(404, null, "No customer entries found."));

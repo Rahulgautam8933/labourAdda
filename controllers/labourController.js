@@ -116,7 +116,9 @@ const addData = asyncHandler(async (req, res) => {
 
 const getAllData = asyncHandler(async (req, res) => {
     try {
-        const laborEntries = await Labor.find();
+        const laborEntries = await Labor.find()
+            .populate('category', 'name')
+            .populate('subCategory', 'name');
 
         if (!laborEntries.length) {
             return res.status(404).json(new apiResponse(404, null, "No labor entries found."));
@@ -128,6 +130,7 @@ const getAllData = asyncHandler(async (req, res) => {
         res.status(500).json(new apiResponse(500, null, error.message));
     }
 });
+
 
 const getDataById = asyncHandler(async (req, res) => {
     const { id } = req.params;

@@ -7,13 +7,13 @@ import { asyncHandler } from '../utils/asynchandler.js';
 // Add SubCategory
 const addSubCategory = asyncHandler(async (req, res) => {
     try {
-        const { name, categoryId } = req.body;
+        const { name, category } = req.body;
 
-        if (!name || !categoryId) {
+        if (!name || !category) {
             return res.status(400).json(new apiResponse(400, null, "Subcategory name and category ID are required."));
         }
 
-        const newSubCategory = new SubCategory({ name, categoryId });
+        const newSubCategory = new SubCategory({ name, category });
         await newSubCategory.save();
 
         res.status(201).json(new apiResponse(201, newSubCategory, "Subcategory added successfully."));
@@ -26,7 +26,7 @@ const addSubCategory = asyncHandler(async (req, res) => {
 
 const getAllSubCategories = asyncHandler(async (req, res) => {
     try {
-        const subCategories = await SubCategory.find().populate('categoryId', 'name');
+        const subCategories = await SubCategory.find().populate('category', 'name');
 
         if (!subCategories.length) {
             return res.status(404).json(new apiResponse(404, null, "No subcategories found."));
@@ -44,7 +44,7 @@ const getSubCategoryById = asyncHandler(async (req, res) => {
     const { id } = req.params;
 
     try {
-        const subCategory = await SubCategory.findById(id).populate('categoryId', 'name');
+        const subCategory = await SubCategory.findById(id).populate('category', 'name');
 
         if (!subCategory) {
             return res.status(404).json(new apiResponse(404, null, "Subcategory not found."));
@@ -96,15 +96,15 @@ const deleteSubCategory = asyncHandler(async (req, res) => {
 
 
 const getSubCategoriesByCategoryId = asyncHandler(async (req, res) => {
-    const { categoryId } = req.query;
+    const { category } = req.query;
 
     try {
         let subCategories;
 
-        if (categoryId) {
-            subCategories = await SubCategory.find({ categoryId }).populate('categoryId', 'name');
+        if (category) {
+            subCategories = await SubCategory.find({ category }).populate('category', 'name');
         } else {
-            subCategories = await SubCategory.find().populate('categoryId', 'name');
+            subCategories = await SubCategory.find().populate('category', 'name');
         }
 
         // Return an empty array if no subcategories are found

@@ -82,10 +82,10 @@ const addData = asyncHandler(async (req, res) => {
         } = req.body;
 
         if (!name || !age || !mobile || !category || !subCategory || !currentAddress || !permanentAddress ||
-            !pincode || !state || !city || !aadharNo || !aadharFrontImage || !aadharBackImage ||
-            !totleExprience || !profileImage) {
+            !pincode || !state || !city || !aadharNo ) {
             return res.status(400).json(new apiResponse(400, null, "All fields are required."));
         }
+        
 
         const newLabor = new Labor({
             name,

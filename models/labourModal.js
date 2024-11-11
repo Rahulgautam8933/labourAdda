@@ -32,7 +32,7 @@ const laborSchema = new mongoose.Schema({
     },
     permanentAddress: {
         type: String,
-        required: true,
+        // required: true,
     },
     pincode: {
         type: String,
@@ -48,23 +48,23 @@ const laborSchema = new mongoose.Schema({
     },
     aadharNo: {
         type: String,
-        required: true,
+        // required: true,
     },
     aadharFrontImage: {
         type: String,
-        required: true,
+        // required: true,
     },
     aadharBackImage: {
         type: String,
-        required: true,
+        // required: true,
     },
     totleExprience: {
         type: String,
-        required: true,
+        // required: true,
     },
     profileImage: {
         type: String,
-        required: true,
+        // required: true,
     },
 
 

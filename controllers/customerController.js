@@ -23,7 +23,7 @@ const addData = asyncHandler(async (req, res) => {
             img
         } = req.body;
 
-        if (!name || !mobile || !currentAddress || !permanentAddress ||
+        if (!name || !mobile || !currentAddress ||
             !pincode || !state || !city || !landmark || !details ||
             !category || !subCategory || !qyt || !startDate) {
             return res.status(400).json(new apiResponse(400, null, "All fields are required."));

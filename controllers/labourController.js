@@ -107,7 +107,12 @@ const addData = asyncHandler(async (req, res) => {
 
         await newLabor.save();
 
-        res.status(201).json(new apiResponse(201, newLabor, "Labor added successfully."));
+        const populatedLabor = await Labor.findById(newLabor._id)
+        .populate('category')  
+        .populate('subCategory');  
+
+    res.status(201).json(new apiResponse(201, populatedLabor, "Labor added successfully."));     
+
     } catch (error) {
         console.error("Error adding labor data:", error);
         res.status(500).json(new apiResponse(500, null, error.message));

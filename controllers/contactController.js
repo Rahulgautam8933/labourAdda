@@ -1,10 +1,32 @@
 // controllers/categoryController.js
-
+import nodemailer from 'nodemailer';
 import Contact from '../models/contectModal.js';  // Assuming you have a Contact model for contacts
 import { apiResponse } from '../utils/apiResponse.js';
 import { asyncHandler } from '../utils/asynchandler.js';
 
 // Add Contact
+// const addContact = asyncHandler(async (req, res) => {
+//     try {
+//         const { name, email, phone, message, address } = req.body;
+
+//         // Validate input fields
+//         if (!name || !email || !phone || !message || !address) {
+//             return res.status(400).json(new apiResponse(400, null, "All fields are required."));
+//         }
+
+//         // Create a new contact document
+//         const newContact = new Contact({ name, email, phone, message, address });
+//         await newContact.save();
+
+//         // Respond with success
+//         res.status(201).json(new apiResponse(201, newContact, "Contact form submitted successfully."));
+//     } catch (error) {
+//         // Handle server error
+//         res.status(500).json(new apiResponse(500, null, error.message));
+//     }
+// });
+
+
 const addContact = asyncHandler(async (req, res) => {
     try {
         const { name, email, phone, message, address } = req.body;
@@ -18,10 +40,43 @@ const addContact = asyncHandler(async (req, res) => {
         const newContact = new Contact({ name, email, phone, message, address });
         await newContact.save();
 
+        // Send email after successful contact form submission
+        let transporter = nodemailer.createTransport({
+            service: 'gmail',  
+            auth: {
+                user: 'rg307125@gmail.com', 
+                pass: 'rxha qeai ochk wsfw',  
+            }
+        });
+
+        let mailOptions = {
+            from: `"Contact Form" ${email}`, 
+            to: `izzyclicksupplier@gmail.com`, 
+            subject: 'New Contact Form Submission', 
+            html: `
+                <h3>New Contact Form Submission</h3>
+                <p><strong>Name:</strong> ${name}</p>
+                <p><strong>Email:</strong> ${email}</p>
+                <p><strong>Phone:</strong> ${phone}</p>
+                <p><strong>Address:</strong> ${address}</p>
+                <p><strong>Message:</strong> ${message}</p>
+            `, // HTML content
+        };
+
+        // Send the email
+        transporter.sendMail(mailOptions, (error, info) => {
+            if (error) {
+                console.error("Error sending email:", error);
+                return res.status(500).json(new apiResponse(500, null, "Failed to send email."));
+            }
+            console.log("Email sent: " + info.response);
+        });
+
         // Respond with success
         res.status(201).json(new apiResponse(201, newContact, "Contact form submitted successfully."));
     } catch (error) {
         // Handle server error
+        console.error("Server error:", error);
         res.status(500).json(new apiResponse(500, null, error.message));
     }
 });

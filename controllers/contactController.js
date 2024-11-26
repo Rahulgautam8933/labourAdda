@@ -29,15 +29,15 @@ import { asyncHandler } from '../utils/asynchandler.js';
 
 const addContact = asyncHandler(async (req, res) => {
     try {
-        const { name, email, phone, message, address } = req.body;
+        const { name, email, phone, message } = req.body;
 
         // Validate input fields
-        if (!name || !email || !phone || !message || !address) {
+        if (!name || !email || !phone || !message) {
             return res.status(400).json(new apiResponse(400, null, "All fields are required."));
         }
 
         // Create a new contact document
-        const newContact = new Contact({ name, email, phone, message, address });
+        const newContact = new Contact({ name, email, phone, message });
         await newContact.save();
 
         // Send email after successful contact form submission

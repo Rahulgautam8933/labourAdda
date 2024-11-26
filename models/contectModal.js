@@ -17,10 +17,6 @@ const contactSchema = new mongoose.Schema({
         required: true,
     },
 
-    address: {
-        type: String,
-        required: true,
-    },
     message: {
         type: String,
         required: true,

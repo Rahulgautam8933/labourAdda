@@ -81,11 +81,11 @@ const addData = asyncHandler(async (req, res) => {
             profileImage,
         } = req.body;
 
-        if (!name || !age || !mobile || !category || !subCategory || !currentAddress || !permanentAddress ||
-            !pincode || !state || !city || !aadharNo ) {
+        if (!name || !age || !mobile || !category || !subCategory || !currentAddress ||
+            !pincode || !state || !city) {
             return res.status(400).json(new apiResponse(400, null, "All fields are required."));
         }
-        
+
 
         const newLabor = new Labor({
             name,

@@ -18,7 +18,7 @@ const laborSchema = new mongoose.Schema({
     },
     permanentAddress: {
         type: String,
-        required: true,
+        // required: true,
     },
     pincode: {
         type: String,
@@ -60,7 +60,7 @@ const laborSchema = new mongoose.Schema({
     },
     img: {
         type: String,
-       
+
     },
 
 }, {

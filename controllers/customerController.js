@@ -20,6 +20,8 @@ const addData = asyncHandler(async (req, res) => {
             subCategory,
             qyt,
             startDate,
+            employcode,
+            employname,
             img
         } = req.body;
 
@@ -43,6 +45,8 @@ const addData = asyncHandler(async (req, res) => {
             subCategory,
             qyt,
             startDate,
+            employcode,
+            employname,
             img
         });
 

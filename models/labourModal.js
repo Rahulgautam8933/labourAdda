@@ -50,6 +50,18 @@ const laborSchema = new mongoose.Schema({
         type: String,
         // required: true,
     },
+    employcode: {
+        type: String,
+        // required: true,
+    },
+    employname: {
+        type: String,
+        // required: true,
+    },
+    ss: {
+        type: String,
+        // required: true,
+    },
     aadharFrontImage: {
         type: String,
         // required: true,

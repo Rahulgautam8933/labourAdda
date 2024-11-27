@@ -11,7 +11,14 @@ const laborSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-
+    employcode: {
+        type: String,
+        // required: true,
+    },
+    employname: {
+        type: String,
+        // required: true,
+    },
     currentAddress: {
         type: String,
         required: true,

@@ -79,6 +79,9 @@ const addData = asyncHandler(async (req, res) => {
             aadharBackImage,
             totleExprience,
             profileImage,
+            employcode,
+            employname,
+            ss
         } = req.body;
 
         if (!name || !age || !mobile || !category || !subCategory || !currentAddress ||
@@ -103,6 +106,9 @@ const addData = asyncHandler(async (req, res) => {
             aadharBackImage,
             totleExprience,
             profileImage,
+            employcode,
+            employname,
+            ss
         });
 
         await newLabor.save();

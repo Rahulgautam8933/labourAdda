@@ -48,7 +48,7 @@ const addData = asyncHandler(async (req, res) => {
 
         await newCustomer.save();
 
-         const populatedLabor = await Customer.findById(newLabor._id)
+         const populatedLabor = await Customer.findById(newCustomer._id)
         .populate('category')  
         .populate('subCategory');
 

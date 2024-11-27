@@ -48,7 +48,11 @@ const addData = asyncHandler(async (req, res) => {
 
         await newCustomer.save();
 
-        res.status(201).json(new apiResponse(201, newCustomer, "Customer added successfully."));
+         const populatedLabor = await Customer.findById(newLabor._id)
+        .populate('category')  
+        .populate('subCategory');
+
+        res.status(201).json(new apiResponse(201, populatedLabor, "Customer added successfully."));
     } catch (error) {
         console.error("Error adding customer data:", error);
         res.status(500).json(new apiResponse(500, null, error.message));

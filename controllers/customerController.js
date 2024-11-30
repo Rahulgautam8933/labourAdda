@@ -22,7 +22,7 @@ const addData = asyncHandler(async (req, res) => {
             startDate,
             employcode,
             employname,
-            img
+            img,othercategory,othersubCategory
         } = req.body;
 
         if (!name || !mobile || !currentAddress ||
@@ -47,7 +47,7 @@ const addData = asyncHandler(async (req, res) => {
             startDate,
             employcode,
             employname,
-            img
+            img,othercategory,othersubCategory
         });
 
         await newCustomer.save();

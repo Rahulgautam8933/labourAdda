@@ -61,6 +61,14 @@ const laborSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    othersubCategory: {
+        type: String,
+        // required: true,
+    },
+    othercategory: {
+        type: String,
+        // required: true,
+    },
     startDate: {
         type: String,
         required: true,

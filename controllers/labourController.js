@@ -84,8 +84,7 @@ const addData = asyncHandler(async (req, res) => {
             ss,othercategory,othersubCategory
         } = req.body;
 
-        if (!name || !age || !mobile || !category || !subCategory || !currentAddress ||
-            !pincode || !state || !city) {
+        if (!name ) {
             return res.status(400).json(new apiResponse(400, null, "All fields are required."));
         }
 

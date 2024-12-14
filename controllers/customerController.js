@@ -4,6 +4,65 @@ import { asyncHandler } from "../utils/asynchandler.js";
 import Customer from '../models/customerModal.js'; // Ensure this path is correct
 
 // Add Data
+// const addData = asyncHandler(async (req, res) => {
+//     try {
+//         const {
+//             name,
+//             mobile,
+//             currentAddress,
+//             permanentAddress,
+//             pincode,
+//             state,
+//             city,
+//             landmark,
+//             details,
+//             category,
+//             subCategory,
+//             qyt,
+//             startDate,
+//             employcode,
+//             employname,
+//             img,othercategory,othersubCategory
+//         } = req.body;
+
+//         if (!name ) {
+//             return res.status(400).json(new apiResponse(400, null, "All fields are required."));
+//         }
+
+//         const newCustomer = new Customer({
+//             name,
+//             mobile,
+//             currentAddress,
+//             permanentAddress,
+//             pincode,
+//             state,
+//             city,
+//             landmark,
+//             details,
+//             category,
+//             subCategory,
+//             qyt,
+//             startDate,
+//             employcode,
+//             employname,
+//             img,othercategory,othersubCategory
+//         });
+
+//         await newCustomer.save();
+
+//          const populatedLabor = await Customer.findById(newCustomer._id)
+//         .populate('category')  
+//         .populate('subCategory');
+
+//         res.status(201).json(new apiResponse(201, populatedLabor, "Customer added successfully."));
+//     } catch (error) {
+//         console.error("Error adding customer data:", error);
+//         res.status(500).json(new apiResponse(500, null, error.message));
+//     }
+// });
+
+
+
 const addData = asyncHandler(async (req, res) => {
     try {
         const {
@@ -16,19 +75,31 @@ const addData = asyncHandler(async (req, res) => {
             city,
             landmark,
             details,
-            category,
-            subCategory,
+            category, // Expecting an array for category
+            subCategory, // Expecting an array for subCategory
             qyt,
             startDate,
             employcode,
             employname,
-            img,othercategory,othersubCategory
+            img,
+            othercategory,
+            othersubCategory
         } = req.body;
 
-        if (!name ) {
+        if (!name) {
             return res.status(400).json(new apiResponse(400, null, "All fields are required."));
         }
 
+        // Check if category and subCategory are arrays, and handle empty arrays
+        if (!Array.isArray(category) || category.length === 0) {
+            return res.status(400).json(new apiResponse(400, null, "At least one category is required."));
+        }
+
+        if (!Array.isArray(subCategory) || subCategory.length === 0) {
+            return res.status(400).json(new apiResponse(400, null, "At least one subCategory is required."));
+        }
+
+        // Create a new customer entry
         const newCustomer = new Customer({
             name,
             mobile,
@@ -45,21 +116,28 @@ const addData = asyncHandler(async (req, res) => {
             startDate,
             employcode,
             employname,
-            img,othercategory,othersubCategory
+            img,
+            othercategory,
+            othersubCategory,
         });
 
         await newCustomer.save();
 
-         const populatedLabor = await Customer.findById(newCustomer._id)
-        .populate('category')  
-        .populate('subCategory');
+        // Populate the categories and subCategories in the response
+        const populatedCustomer = await Customer.findById(newCustomer._id)
+            .populate('category')  // Populate category
+            .populate('subCategory');  // Populate subCategory
 
-        res.status(201).json(new apiResponse(201, populatedLabor, "Customer added successfully."));
+        res.status(201).json(new apiResponse(201, populatedCustomer, "Customer added successfully."));
+
     } catch (error) {
         console.error("Error adding customer data:", error);
         res.status(500).json(new apiResponse(500, null, error.message));
     }
 });
+
+
+
 
 // Get All Data
 const getAllData = asyncHandler(async (req, res) => {

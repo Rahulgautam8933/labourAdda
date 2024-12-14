@@ -67,8 +67,8 @@ const addData = asyncHandler(async (req, res) => {
             name,
             age,
             mobile,
-            category,
-            subCategory,
+            category, // This should now be an array
+            subCategory, // This should now be an array
             currentAddress,
             permanentAddress,
             pincode,
@@ -81,14 +81,25 @@ const addData = asyncHandler(async (req, res) => {
             profileImage,
             employcode,
             employname,
-            ss,othercategory,othersubCategory
+            ss,
+            othercategory,
+            othersubCategory,
         } = req.body;
 
-        if (!name ) {
+        if (!name) {
             return res.status(400).json(new apiResponse(400, null, "All fields are required."));
         }
 
+        // Check if category and subCategory are arrays, and handle empty arrays
+        if (!Array.isArray(category) || category.length === 0) {
+            return res.status(400).json(new apiResponse(400, null, "At least one category is required."));
+        }
 
+        if (!Array.isArray(subCategory) || subCategory.length === 0) {
+            return res.status(400).json(new apiResponse(400, null, "At least one subCategory is required."));
+        }
+
+        // Create a new Labor entry with the provided data
         const newLabor = new Labor({
             name,
             age,
@@ -107,16 +118,19 @@ const addData = asyncHandler(async (req, res) => {
             profileImage,
             employcode,
             employname,
-            ss,othercategory,othersubCategory
+            ss,
+            othercategory,
+            othersubCategory,
         });
 
         await newLabor.save();
 
+        // Populate the categories and subCategories in the response
         const populatedLabor = await Labor.findById(newLabor._id)
-        .populate('category')  
-        .populate('subCategory');  
+            .populate('category')
+            .populate('subCategory');
 
-    res.status(201).json(new apiResponse(201, populatedLabor, "Labor added successfully."));     
+        res.status(201).json(new apiResponse(201, populatedLabor, "Labor added successfully."));
 
     } catch (error) {
         console.error("Error adding labor data:", error);
@@ -124,11 +138,12 @@ const addData = asyncHandler(async (req, res) => {
     }
 });
 
+
 const getAllData = asyncHandler(async (req, res) => {
     try {
         const laborEntries = await Labor.find()
-            .populate('category', 'name')
-            .populate('subCategory', 'name');
+        .populate('category')
+        .populate('subCategory');
 
         if (!laborEntries.length) {
             return res.status(404).json(new apiResponse(404, null, "No labor entries found."));

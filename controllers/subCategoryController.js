@@ -26,7 +26,7 @@ const addSubCategory = asyncHandler(async (req, res) => {
 
 const getAllSubCategories = asyncHandler(async (req, res) => {
     try {
-        const subCategories = await SubCategory.find().populate('category', 'name');
+        const subCategories = await SubCategory.find().populate('category');
 
         if (!subCategories.length) {
             return res.status(404).json(new apiResponse(404, null, "No subcategories found."));

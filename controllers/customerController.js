@@ -90,10 +90,7 @@ const addData = asyncHandler(async (req, res) => {
             return res.status(400).json(new apiResponse(400, null, "All fields are required."));
         }
 
-        // Check if category and subCategory are arrays, and handle empty arrays
-        if (!Array.isArray(category) || category.length === 0) {
-            return res.status(400).json(new apiResponse(400, null, "At least one category is required."));
-        }
+      
 
         if (!Array.isArray(subCategory) || subCategory.length === 0) {
             return res.status(400).json(new apiResponse(400, null, "At least one subCategory is required."));

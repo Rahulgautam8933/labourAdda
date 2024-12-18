@@ -13,11 +13,11 @@ const laborSchema = new mongoose.Schema({
     mobile: {
         type: String,
     },
-    // Update to handle multiple categories
-    category: [{
+    category: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Category',
-    }],
+        required: true,
+      },
     // Update to handle multiple subCategories
     subCategory: [{
         type: mongoose.Schema.Types.ObjectId,
